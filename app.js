@@ -33,6 +33,18 @@ fs.readFile("./down.html", function(err, data) {
   http.createServer(function (req, res) {
     var url = req.url || "";
 
+    /*********************************************
+    These URLs get 500 responses
+
+    /subscription/stripe/callback
+    /comment/spam/mark/queue/#{@comment.id}
+    /comment/spam/approve/queue/#{@comment.id}
+    /admin/worker/run
+    /oauth/goog/files/delete-expired
+    /pen/add_pick_from_queue
+    /pen/screenshot/update
+    ***********************************************/
+
     if (url.match(/^(\/subscription\/stripe\/callback|\/comment\/spam\/mark\/queue|\/comment\/spam\/approve\/queue|\/admin\/worker\/run|\/oauth\/goog\/files\/delete-expired|\/pen\/add_pick_from_queue|\/pen\/screenshot\/update)/)) {
       handle500(req, res);
     } else {
